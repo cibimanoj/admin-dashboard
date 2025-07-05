@@ -1,4 +1,7 @@
 import React from 'react';
+import assistBlack from '../Assets/Images/assist-black.svg';
+import assistWhite from '../Assets/Images/assist-white.svg';
+import { FaBars } from 'react-icons/fa';
 
 const AppBar = ({ onMenuClick, darkMode, onThemeToggle }) => {
   return (
@@ -7,10 +10,12 @@ const AppBar = ({ onMenuClick, darkMode, onThemeToggle }) => {
         {/* Logo and Title */}
         <div className="flex items-center space-x-2 sm:space-x-3">
           <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer" onClick={onMenuClick} >
-            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xs sm:text-sm">A</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+              <FaBars className="text-gray-600 dark:text-gray-200 font-medium text-xs sm:text-sm" />
             </div>
-            <h1 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white hidden sm:block">Assist</h1>
+            <h1 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white hidden sm:block">
+              <img src={darkMode ? assistWhite : assistBlack} alt="Assist" className="w-30 h-8" />
+            </h1>
           </div>
         </div>
         {/* Right side actions */}
