@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import assistBlack from '../Assets/Images/assist-black.svg';
+import assistWhite from '../Assets/Images/assist-white.svg';
 
 const EyeIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -23,6 +25,18 @@ const Login = ({ onLogin }) => {
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
 
+
+  const [darkMode, setDarkMode] = useState(() => {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored === 'dark';
+    // Default to light mode initially
+    return false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -39,9 +53,15 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
-      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 sm:p-10">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">Sign in to your account</h2>
-        <form className="space-y-5" onSubmit={handleSubmit}>
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 sm:p-10 flex flex-col items-center">
+        {/* Logo */}
+        <div className="mb-4 flex flex-col items-center">
+          <div className="w-56 h-28 bg-white dark:bg-gray-900 flex items-center justify-center">
+            <img src={darkMode ? assistWhite : assistBlack} alt="Assist Logo" className="w-48 h-20 object-contain" draggable={false} />
+          </div>
+        </div>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 text-center">Sign in to your account</h2>
+        <form className="space-y-3 w-full" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               Email address
@@ -50,7 +70,7 @@ const Login = ({ onLogin }) => {
               id="email"
               type="email"
               autoComplete="email"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="w-full max-w-[420px] px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -65,7 +85,7 @@ const Login = ({ onLogin }) => {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none pr-10"
+                className="w-full max-w-[420px] px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none pr-10"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
